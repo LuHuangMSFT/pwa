@@ -13,12 +13,7 @@
   "name": "Web App URL Handlers Sample App",
   "short_name": "Web App URL Handlers",
   "start_url": "./index.html",
-  "url_handlers": [
-    {
-      "origin": "https://luhuangmsft.github.io"
-    },
-    {
-      "origin": "https://mandymsft.github.io"
-    }
+  "scope_extensions": [
+    {"type" : "origin", "origin" : "https://example.com"} 
   ]
 }
