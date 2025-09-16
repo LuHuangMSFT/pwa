@@ -1,7 +1,7 @@
 const registerServiceWorker = async () => {
   if ("serviceWorker" in navigator) {
     try {
-      const registration = await navigator.serviceWorker.register("/pwabuilder-sw.js", {
+      const registration = await navigator.serviceWorker.register("/pwa/pwabuilder-sw.js", {
         scope: "/",
       });
       if (registration.installing) {
