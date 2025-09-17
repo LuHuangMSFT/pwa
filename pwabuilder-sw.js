@@ -85,18 +85,30 @@ self.addEventListener("fetch", event => {
   // were no service worker involvement.
 });
 
-// In your service worker (e.g., sw.js)
 self.addEventListener('notificationclick', (event) => {
-  const urlToOpen = event.notification.data.url; // Assuming your URL is in notification.data
+  event.notification.close(); // Close the notification
+
+  const urlToOpen = event.notification.data.url || '/'; // Get URL from notification data or default to root
+
   event.waitUntil(
-    clients.matchAll({ type: 'window' }).then((windowClients) => {
-      const matchingClient = windowClients.find(client => client.url === urlToOpen);
-      if (matchingClient) {
-        return matchingClient.focus();
-      } else {
-        return clients.openWindow(urlToOpen);
-      }
-    })
+    clients.openWindow(urlToOpen)
   );
 });
+
+self.addEventListener('push', (event) => {
+  const data = event.data.json();
+  const title = data.title || 'New Content';
+  const options = {
+    body: data.body || 'Click to view new content.',
+    icon: data.icon || 'icon.png',
+    data: {
+      url: data.url || '/' // Store the URL to open in notification data
+    }
+  };
+
+  event.waitUntil(
+    self.registration.showNotification(title, options)
+  );
+});
+
 
