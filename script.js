@@ -22,7 +22,7 @@ function sendTestNotification() {
   if ('Notification' in window && Notification.permission === 'granted') {
     // In a real app, this would come from a server push
     fetch('/pwa/send-push-notification', { // Replace with your backend endpoint
-      method: 'POST',
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json'
       },
